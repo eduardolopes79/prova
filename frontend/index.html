@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Minhas Tarefas</title>
+  <title>Folha a Folha · Minhas Tarefas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -43,7 +43,7 @@
     .hero h1 { margin: 2px 0 14px; font-size: 1.9rem; font-weight: 800; letter-spacing: -.5px; }
     .progress-label { display: flex; justify-content: space-between; font-size: .9rem; font-weight: 600; margin-bottom: 6px; }
     .progress-track { height: 10px; background: rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #e1e6e3; border-radius: 999px; transition: width .4s ease; }
+    .progress-fill { height: 100%; background: #bbf7d0; border-radius: 999px; transition: width .4s ease; }
     .status-line {
       min-height: 24px; margin: 12px 0 0; font-size: .88rem; opacity: .95;
       display: flex; align-items: center; gap: 8px;
@@ -53,7 +53,7 @@
     .card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 18px; margin-top: 16px;
-      box-shadow: 0 2px 6px rgba(77, 78, 77, 0.06);
+      box-shadow: 0 2px 6px rgba(20, 83, 45, .06);
     }
 
     /* ---------- Formulário ---------- */
@@ -361,7 +361,6 @@
           <header className="hero">
             <p className="greeting">{greeting()}</p>
 
-            {/* H1: progresso e status sempre visíveis */}
             <div className="progress-label">
               <span>{doneCount} de {tasks.length} concluídas</span>
               <span>{percent}%</span>
