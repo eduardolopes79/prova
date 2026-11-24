@@ -4,123 +4,157 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Minhas Tarefas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #f4f6fb;
+      --bg: #eef6ef;
       --card: #ffffff;
-      --text: #1f2937;
-      --muted: #5b6475;
-      --primary: #4f46e5;
-      --primary-dark: #4338ca;
+      --text: #14301f;
+      --muted: #4d6556;
+      --primary: #15803d;
+      --primary-dark: #166534;
+      --soft: #dcfce7;
+      --soft-2: #f4fbf5;
+      --border: #cfe3d4;
       --danger: #b91c1c;
       --danger-bg: #fef2f2;
-      --success: #15803d;
-      --border: #d9deea;
-      --radius: 12px;
+      --radius: 16px;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
-    .app { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; }
+    .app { max-width: 680px; margin: 0 auto; padding: 20px 16px 72px; }
 
-    header h1 { margin: 0; font-size: 1.75rem; }
-    .subtitle { margin: 4px 0 0; color: var(--muted); }
+    /* ---------- Cabeçalho (banner verde) ---------- */
+    .hero {
+      background: linear-gradient(135deg, #14532d 0%, #15803d 55%, #22a559 100%);
+      color: #fff; border-radius: 22px; padding: 24px 22px 20px;
+      box-shadow: 0 10px 24px rgba(21, 128, 61, .25);
+    }
+    .hero .greeting { margin: 0; font-weight: 600; opacity: .9; }
+    .hero h1 { margin: 2px 0 14px; font-size: 1.9rem; font-weight: 800; letter-spacing: -.5px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: .9rem; font-weight: 600; margin-bottom: 6px; }
+    .progress-track { height: 10px; background: rgba(255,255,255,.25); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #e1e6e3; border-radius: 999px; transition: width .4s ease; }
     .status-line {
-      min-height: 24px; margin: 12px 0 0; font-size: .9rem; color: var(--muted);
+      min-height: 24px; margin: 12px 0 0; font-size: .88rem; opacity: .95;
       display: flex; align-items: center; gap: 8px;
     }
 
+    /* ---------- Cartões ---------- */
     .card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px; margin-top: 16px;
-      box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+      border-radius: var(--radius); padding: 18px; margin-top: 16px;
+      box-shadow: 0 2px 6px rgba(77, 78, 77, 0.06);
     }
 
-    /* Formulário */
-    .add-form label { display: block; font-weight: 600; margin-bottom: 6px; }
+    /* ---------- Formulário ---------- */
+    .add-form label { display: block; font-weight: 700; margin-bottom: 8px; }
     .add-row { display: flex; gap: 8px; }
     input[type="text"] {
-      flex: 1; min-width: 0; padding: 10px 12px; font-size: 1rem;
-      border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--text);
+      flex: 1; min-width: 0; padding: 12px 14px; font: inherit; font-size: 1rem;
+      border: 2px solid var(--border); border-radius: 12px; background: var(--soft-2); color: var(--text);
     }
+    input[type="text"]:focus { border-color: var(--primary); background: #fff; outline: none; }
     input[type="text"].invalid { border-color: var(--danger); background: var(--danger-bg); }
-    .field-hint { margin: 6px 0 0; font-size: .85rem; color: var(--muted); }
-    .field-error { margin: 6px 0 0; font-size: .9rem; color: var(--danger); font-weight: 600; }
+    .field-hint { margin: 8px 0 0; font-size: .85rem; color: var(--muted); }
+    .field-error { margin: 8px 0 0; font-size: .9rem; color: var(--danger); font-weight: 700; }
 
     button {
-      font: inherit; cursor: pointer; border-radius: 8px; padding: 9px 14px;
-      border: 1px solid var(--border); background: #fff; color: var(--text);
+      font: inherit; font-weight: 600; cursor: pointer; border-radius: 12px; padding: 10px 16px;
+      border: 2px solid var(--border); background: #fff; color: var(--text);
+      transition: background .15s, transform .05s;
     }
-    button:hover:not(:disabled) { background: #eef0f8; }
+    button:hover:not(:disabled) { background: var(--soft); }
+    button:active:not(:disabled) { transform: scale(.97); }
     button:disabled { opacity: .5; cursor: not-allowed; }
-    button.primary { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
-    button.primary:hover:not(:disabled) { background: var(--primary-dark); }
+    button.primary { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 800; }
+    button.primary:hover:not(:disabled) { background: var(--primary-dark); border-color: var(--primary-dark); }
     button.danger { color: var(--danger); border-color: #f3c4c4; }
     button.danger:hover:not(:disabled) { background: var(--danger-bg); }
-    button.link { border: none; background: none; color: var(--primary); text-decoration: underline; padding: 4px; }
 
     :focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
 
-    /* Filtros */
+    /* ---------- Filtros (pílulas) ---------- */
     .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filters button { border-radius: 999px; padding: 7px 14px; font-size: .92rem; }
     .filters button[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
 
-    /* Lista */
-    ul.tasks { list-style: none; margin: 12px 0 0; padding: 0; }
+    /* ---------- Lista ---------- */
+    ul.tasks { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
     .task {
-      display: flex; align-items: center; gap: 12px; padding: 12px 4px;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      background: var(--soft-2); border: 1px solid var(--border); border-left: 6px solid var(--primary);
+      border-radius: 12px; transition: opacity .2s;
     }
-    .task:last-child { border-bottom: none; }
-    .task input[type="checkbox"] { width: 22px; height: 22px; flex-shrink: 0; cursor: pointer; accent-color: var(--primary); }
-    .task .title { flex: 1; word-break: break-word; cursor: text; }
+    .task.done { border-left-color: #a7d7b6; opacity: .8; }
     .task.done .title { text-decoration: line-through; color: var(--muted); }
+    .task .title { flex: 1; word-break: break-word; cursor: text; font-weight: 600; }
     .task .actions { display: flex; gap: 6px; flex-shrink: 0; }
-    .task .actions button { padding: 6px 10px; font-size: .9rem; }
+    .task .actions button { padding: 6px 11px; font-size: .88rem; }
 
-    .empty { text-align: center; color: var(--muted); padding: 24px 8px; }
+    /* Checkbox redondo personalizado (continua sendo um checkbox real) */
+    .task input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none; flex-shrink: 0; cursor: pointer;
+      width: 26px; height: 26px; border: 2px solid var(--primary); border-radius: 50%;
+      background: #fff; display: grid; place-content: center; margin: 0;
+    }
+    .task input[type="checkbox"]::after {
+      content: "✓"; color: #fff; font-size: 15px; font-weight: 800; transform: scale(0); transition: transform .15s;
+    }
+    .task input[type="checkbox"]:checked { background: var(--primary); }
+    .task input[type="checkbox"]:checked::after { transform: scale(1); }
 
-    .list-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 8px; }
-    .counter { color: var(--muted); font-size: .95rem; }
+    .empty { text-align: center; color: var(--muted); padding: 28px 8px; }
+    .empty .big { font-size: 2.2rem; display: block; margin-bottom: 4px; }
 
-    /* Erro de carregamento */
-    .error-box { background: var(--danger-bg); border: 1px solid #f3c4c4; color: var(--danger); border-radius: var(--radius); padding: 16px; }
+    .list-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 8px; }
+    .counter { color: var(--muted); font-size: .95rem; font-weight: 600; }
+
+    .error-box { background: var(--danger-bg); border: 1px solid #f3c4c4; color: var(--danger); border-radius: 12px; padding: 16px; }
     .error-box p { margin: 0 0 10px; }
 
-    /* Spinner */
     .spinner {
       width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid var(--border); border-top-color: var(--primary);
+      border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
       animation: spin .8s linear infinite; display: inline-block;
     }
+    .empty .spinner { border-color: var(--border); border-top-color: var(--primary); }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Avisos (toasts) */
+    /* ---------- Avisos ---------- */
     .toasts { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: min(92vw, 420px); display: grid; gap: 8px; z-index: 10; }
     .toast {
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
-      background: #111827; color: #fff; padding: 12px 14px; border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      background: #14301f; color: #fff; padding: 12px 14px; border-radius: 12px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.25);
     }
     .toast.error { background: var(--danger); }
-    .toast button { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); padding: 4px 10px; }
-    .toast button:hover:not(:disabled) { background: rgba(255,255,255,.15); }
+    .toast button { background: transparent; color: #fff; border-color: rgba(255,255,255,.55); padding: 4px 12px; }
+    .toast button:hover:not(:disabled) { background: rgba(255,255,255,.18); }
 
-    /* Ajuda */
-    details.help summary { cursor: pointer; font-weight: 600; }
+    /* ---------- Ajuda ---------- */
+    details.help summary { cursor: pointer; font-weight: 700; }
     details.help ul { margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
-    kbd { background: #eef0f8; border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; font-size: .85rem; }
+    kbd { background: var(--soft); border: 1px solid var(--border); border-radius: 6px; padding: 0 6px; font-size: .85rem; }
 
-    @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
-    @media (max-width: 480px) {
+    @media (prefers-reduced-motion: reduce) {
+      .spinner { animation-duration: 3s; }
+      .progress-fill, .task input[type="checkbox"]::after { transition: none; }
+    }
+    @media (max-width: 520px) {
       .task { flex-wrap: wrap; }
       .task .actions { width: 100%; justify-content: flex-end; }
+      .add-row { flex-wrap: wrap; }
+      .add-row input[type="text"] { flex-basis: 100%; }
     }
   </style>
 </head>
@@ -137,7 +171,7 @@
     // CONFIGURAÇÃO: troque pela URL do seu backend na Vercel depois do deploy.
     // Exemplo: "https://tarefas-backend.vercel.app"  (sem barra no final)
     // =====================================================================
-    const API_URL = "https://prova-backend.vercel.app";
+    const API_URL = "http://localhost:3001";
 
     const { useState, useEffect, useRef, useCallback } = React;
     const MAX_LEN = 120;
@@ -165,6 +199,11 @@
       return "";
     }
 
+    function greeting() {
+      const h = new Date().getHours();
+      return h < 12 ? "Bom dia ☀️" : h < 18 ? "Boa tarde ☀️" : "Boa noite 🌙";
+    }
+
     function App() {
       const [tasks, setTasks] = useState([]);
       const [loadState, setLoadState] = useState("loading"); // loading | ready | error
@@ -181,13 +220,13 @@
       const timers = useRef({});
 
       // ---------- Avisos (H1: visibilidade do status do sistema) ----------
+      const dismissToast = (id) => setToasts((t) => t.filter((x) => x.id !== id));
       const pushToast = useCallback((message, opts = {}) => {
         const id = Date.now() + Math.random();
         setToasts((t) => [...t, { id, message, ...opts }]);
-        if (!opts.sticky) setTimeout(() => dismissToast(id), (opts.seconds || 4) * 1000);
+        if (!opts.sticky) setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), (opts.seconds || 4) * 1000);
         return id;
       }, []);
-      const dismissToast = (id) => setToasts((t) => t.filter((x) => x.id !== id));
 
       const track = async (fn) => {
         setPendingOps((n) => n + 1);
@@ -310,18 +349,28 @@
       // ---------- Derivados ----------
       const pending = tasks.filter((t) => !t.done).length;
       const doneCount = tasks.length - pending;
+      const percent = tasks.length ? Math.round((doneCount / tasks.length) * 100) : 0;
       const visible = tasks.filter((t) => filter === "all" ? true : filter === "pending" ? !t.done : t.done);
       const emptyMessage = tasks.length === 0
-        ? "Você não tem tarefas. Adicione a primeira acima!"
-        : filter === "pending" ? "Tudo concluído por aqui. Bom trabalho!"
-        : "Nenhuma tarefa concluída ainda.";
+        ? ["Nada por aqui ainda. Faça sua primeira tarefa acima!"]
+        : filter === "pending" ? ["🎉", "Tudo concluído por aqui. Bom trabalho!"]
+        : ["Nenhuma tarefa concluída ainda."];
 
       return (
         <div className="app">
-          <header>
-            <h1>📝 Minhas Tarefas</h1>
-            <p className="subtitle">Organize o que precisa ser feito, do seu jeito.</p>
-            {/* H1: status sempre visível */}
+          <header className="hero">
+            <p className="greeting">{greeting()}</p>
+
+            {/* H1: progresso e status sempre visíveis */}
+            <div className="progress-label">
+              <span>{doneCount} de {tasks.length} concluídas</span>
+              <span>{percent}%</span>
+            </div>
+            <div className="progress-track" role="progressbar" aria-label="Progresso das tarefas"
+                 aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
+              <div className="progress-fill" style={{ width: percent + "%" }}></div>
+            </div>
+
             <div className="status-line" role="status" aria-live="polite">
               {pendingOps > 0
                 ? <><span className="spinner" aria-hidden="true"></span> Salvando…</>
@@ -331,7 +380,7 @@
 
           <main>
             <form className="card add-form" onSubmit={addTask} noValidate>
-              <label htmlFor="new-task">Nova tarefa</label>
+              <label htmlFor="new-task">O que vamos fazer hoje?</label>
               <div className="add-row">
                 <input
                   id="new-task" ref={inputRef} type="text" value={newTitle} maxLength={MAX_LEN + 20}
@@ -340,7 +389,7 @@
                   aria-invalid={!!formError} aria-describedby="new-task-msg"
                   onChange={(e) => { setNewTitle(e.target.value); if (formError) setFormError(""); }}
                 />
-                <button type="submit" className="primary">Adicionar</button>
+                <button type="submit" className="primary">＋ Adicionar</button>
               </div>
               <div id="new-task-msg">
                 {formError
@@ -370,7 +419,9 @@
 
               {loadState === "ready" && (
                 <>
-                  {visible.length === 0 ? <p className="empty">{emptyMessage}</p> : (
+                  {visible.length === 0 ? (
+                    <p className="empty"><span className="big" aria-hidden="true">{emptyMessage[0]}</span>{emptyMessage[1]}</p>
+                  ) : (
                     <ul className="tasks">
                       {visible.map((task) => (
                         <li key={task.id} className={"task" + (task.done ? " done" : "")}>
@@ -422,7 +473,7 @@
             <details className="card help">
               <summary>Ajuda e atalhos</summary>
               <ul>
-                <li>Marque a caixinha para concluir uma tarefa; desmarque para reabrir.</li>
+                <li>Marque a bolinha para concluir uma tarefa; desmarque para reabrir.</li>
                 <li>Dê <strong>dois cliques</strong> no texto (ou use “Editar”) para mudar o nome.</li>
                 <li>Excluiu sem querer? Use <strong>Desfazer</strong> no aviso que aparece por {UNDO_SECONDS} segundos.</li>
                 <li><kbd>/</kbd> vai direto para o campo de nova tarefa.</li>
