@@ -44,7 +44,11 @@ const dbError = (res, error) => {
 
 // ---------- Rotas ----------
 app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "API da Lista de Tarefas funcionando.", database: Boolean(supabase) });
+  res.json({
+    status: "ok",
+    message: "API da Lista de Tarefas funcionando. Acesse /api/tasks para consultar o banco de dados.",
+    database: Boolean(supabase),
+  });
 });
 
 // READ — listar
